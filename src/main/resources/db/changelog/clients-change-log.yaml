@@ -1,0 +1,11 @@
+databaseChangeLog:  
+  -  changeSet:  
+      id:  1  
+      author:  author  
+      changes:  
+        -  addColumn:  
+            tableName:  clients  
+            columns:  
+              -  column:  
+                  name:  test  
+                  type:  varchar(8)  
