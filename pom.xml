@@ -8,11 +8,11 @@
 		<version>2.5.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.mids.auth</groupId>
-	<artifactId>auth-role-service</artifactId>
+	<groupId>com.mids.auth.customer</groupId>
+	<artifactId>auth-customer-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>auth-role-service</name>
-	<description>Role Service</description>
+	<name>auth-customer-service</name>
+	<description>Customer Service</description>
 	<properties>
 		<java.version>11</java.version>
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
