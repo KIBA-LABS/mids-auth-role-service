@@ -10,7 +10,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-08-10T22:22:21+0530",
+    date = "2021-08-11T10:49:51+0530",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.10 (Oracle Corporation)"
 )
 public class RoleMapperImpl implements RoleMapper {

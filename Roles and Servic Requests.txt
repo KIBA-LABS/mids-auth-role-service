@@ -1,0 +1,58 @@
+1. To add role 
+Request-POST
+ Url - localhost:8080/api/auth/roles
+ Request - { 
+	"roleName": "test",
+	"applicationId":1,
+    "permissions":[]
+}
+
+2.To get All the roles 
+Request-GET
+Url - localhost:8080/api/auth/roles
+
+3. To get roles by applicationId
+Request-GET
+Url - localhost:8080/api/auth/roles/{applicationId}
+
+4. To delete roles by applicationId
+Request-DELETE 
+localhost:8080/api/auth/roles/{applicationId}
+
+5. To update the role by roleId
+Request - PUT
+localhost:8080/api/auth/roles/{UUID roleid}
+
+
+6. To add permissions
+Request-POST
+URL - localhost:8080/api/auth/permission
+{ 
+	"permission": "read",
+	"role":"48409d8c-156d-4de9-bda9-bf64d86bca87"
+    
+}
+
+7.To get all the permissions
+Request-GET
+URL - localhost:8080/api/auth/permission
+
+8. To get all the permissions by applicationId
+Request-GET
+URL - localhost:8080/api/auth/permission/{applicationId}
+
+9. To get all the permissions by applicationId and roleId
+Request-GET
+URL - localhost:8080/api/auth/permission/{applicationId}/{roleId}
+
+9. To delete all the permissions by applicationId
+Request-DELETE 
+URL - localhost:8080/api/auth/permission/{applicationId}
+
+10. To delete all the permissions by applicationId and roleId
+Request-DELETE 
+URL - localhost:8080/api/auth/permission/{applicationId}/{roleId}
+
+11.To update the permission 
+Request - PUT
+localhost:8080/api/auth/permission/{permissionuuid}

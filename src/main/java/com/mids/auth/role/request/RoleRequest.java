@@ -22,7 +22,6 @@ public class RoleRequest {
 	private UUID id;
 	
 	@Size(max = 50)
-	@NotBlank
 	private int applicationId;
 	
 	
