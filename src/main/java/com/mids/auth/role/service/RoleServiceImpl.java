@@ -45,6 +45,7 @@ public class RoleServiceImpl implements RoleService {
 		PageResponse<RoleRequest> pageResponse = new PageResponse<>();
 		pageResponse.setContent(
 				rolePage.getContent().stream().map(roleMapper::roleEntityToRole).collect(Collectors.toList()));
+		pageResponse.setPageNumber(pageNumber);
 		pageResponse.setPageSize(rolePage.getSize());
 		pageResponse.setTotalPages(rolePage.getTotalPages());
 		pageResponse.setTotalElements(rolePage.getTotalElements());

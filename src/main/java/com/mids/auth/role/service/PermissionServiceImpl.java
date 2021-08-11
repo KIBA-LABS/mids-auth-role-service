@@ -61,6 +61,7 @@ public class PermissionServiceImpl implements PermissionService {
 		PageResponse<PermissionRequest> pageResponse = new PageResponse<>();
 		pageResponse.setContent(permissionPage.getContent().stream().map(roleMapper::permissionEntityToPermission)
 				.collect(Collectors.toList()));
+		pageResponse.setPageNumber(pageNumber);
 		pageResponse.setPageSize(permissionPage.getSize());
 		pageResponse.setTotalPages(permissionPage.getTotalPages());
 		pageResponse.setTotalElements(permissionPage.getTotalElements());
