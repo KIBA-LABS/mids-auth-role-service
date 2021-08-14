@@ -34,7 +34,7 @@ public class PermissionController {
 	private final PermissionService permissionService;
 
 	@Autowired
-	public PermissionController(RoleService roleService, PermissionService permissionService) {
+	public PermissionController(PermissionService permissionService) {
 
 		this.permissionService = permissionService;
 
@@ -117,8 +117,8 @@ public class PermissionController {
 			@ApiParam(value = "Application Id of the permission", required = true) @PathVariable int applicationId) {
 		boolean success = permissionService.deletePermissionByApplicationId(applicationId);
 		if (success) {
-			SuccessResponse successResponse = new SuccessResponse(StringConstant.PERMISSION_IS_DELETED);
-			return ResponseEntity.ok(successResponse);
+			return new ResponseEntity(new SuccessResponse(String.format(StringConstant.PERMISSION_IS_DELETED)),
+					HttpStatus.NO_CONTENT);
 		} else {
 			throw new ResourceNotFoundException(
 					String.format(StringConstant.PERMISSION_BY_APPLICATION_ID_NOT_FOUND, applicationId));
@@ -133,8 +133,9 @@ public class PermissionController {
 			@ApiParam(value = "UUID of the role object", required = true) @PathVariable UUID roleId) {
 		boolean success = permissionService.deletePermissionByApplicationRoleId(applicationId, roleId);
 		if (success) {
-			SuccessResponse successResponse = new SuccessResponse(StringConstant.PERMISSION_IS_DELETED);
-			return ResponseEntity.ok(successResponse);
+			return new ResponseEntity(new SuccessResponse(String.format(StringConstant.PERMISSION_IS_DELETED)),
+					HttpStatus.NO_CONTENT);
+			
 		} else {
 			throw new ResourceNotFoundException(
 					String.format(StringConstant.PERMISSION_BY_APPLICATION_ID_NOT_FOUND, applicationId));

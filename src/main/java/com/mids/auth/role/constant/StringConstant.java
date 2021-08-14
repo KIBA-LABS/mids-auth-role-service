@@ -17,4 +17,5 @@ public class StringConstant {
     public static final String PERMISSION_IS_CREATED = "Permission is created.";
     public static final String ROLE_IS_DELETED = "Role is deleted.";
     public static final String PERMISSION_IS_DELETED = "Permission is deleted.";
+    public static final String ROLE_IS_ADDED_TO_USER="Role is succesfully added to user.";
 }

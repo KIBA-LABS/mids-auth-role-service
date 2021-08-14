@@ -29,4 +29,7 @@ public interface RoleRepository extends JpaRepository<Role, UUID> {
     
 	Boolean existsByRoleName(String name);
 	
+	@Query("select case when count(c)> 0 then true else false end from Role c where id=:id and applicationid=:applicationId")
+	boolean existsByRoleAndApplicationId(UUID id,int applicationId);
+	
 }

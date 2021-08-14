@@ -19,14 +19,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
 
-import lombok.Data;
-@Data
+
+@Getter
+@Setter
 @Entity
 @Table(name = "roles",uniqueConstraints=
 @UniqueConstraint(columnNames={"applicationid", "name"}))
@@ -44,6 +48,7 @@ public class Role {
 	
 	@Column(name = "name")
 	@Size(max = 50)
+	@NotBlank
 	private String roleName;
 	
 	@JsonIgnore

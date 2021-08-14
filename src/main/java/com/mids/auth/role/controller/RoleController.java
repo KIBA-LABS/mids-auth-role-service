@@ -15,8 +15,10 @@ import com.mids.auth.role.dto.SuccessResponse;
 import com.mids.auth.role.exception.ResourceNotFoundException;
 import com.mids.auth.role.request.PermissionRequest;
 import com.mids.auth.role.request.RoleRequest;
+import com.mids.auth.role.request.UserRoleRequest;
 import com.mids.auth.role.service.PermissionService;
 import com.mids.auth.role.service.RoleService;
+import com.mids.auth.role.service.UserRoleService;
 
 import javax.validation.Valid;
 	import javax.validation.constraints.Positive;
@@ -34,11 +36,11 @@ import java.util.UUID;
 		
 		 private final RoleService roleService;
 		 
-		  
-		  @Autowired public RoleController(RoleService roleService,PermissionService permissionService)
+		 private final UserRoleService userRoleService;
+		  @Autowired public RoleController(RoleService roleService,UserRoleService userRoleService)
 		  { 
 			  this.roleService = roleService; 
-			  
+			  this.userRoleService = userRoleService;
 		   
 		  }
 		 
@@ -122,8 +124,10 @@ import java.util.UUID;
 	            @PathVariable int applicationId) {
 	        boolean success = roleService.deleteRoleByApplicationId(applicationId);
 	        if(success) {
-	            SuccessResponse successResponse = new SuccessResponse(StringConstant.ROLE_IS_DELETED);
-	            return ResponseEntity.ok(successResponse);
+	        	return new ResponseEntity(new SuccessResponse(String.format(StringConstant.ROLE_IS_DELETED)),
+						HttpStatus.NO_CONTENT);
+	            
+	            
 	        } else {
 	            throw new ResourceNotFoundException(String.format(StringConstant.ROLE_BY_APPLICATION_ID_NOT_FOUND, applicationId));
 	        }
@@ -142,8 +146,8 @@ import java.util.UUID;
 		            @PathVariable UUID id) {
 		        boolean success = roleService.deleteRoleByApplicationRoleId(applicationId,id);
 		        if(success) {
-		            SuccessResponse successResponse = new SuccessResponse(StringConstant.ROLE_IS_DELETED);
-		            return ResponseEntity.ok(successResponse);
+		        	return new ResponseEntity(new SuccessResponse(String.format(StringConstant.ROLE_IS_DELETED)),
+							HttpStatus.NO_CONTENT);
 		        } else {
 		            throw new ResourceNotFoundException(String.format(StringConstant.ROLE_BY_APPLICATION_ID_NOT_FOUND, applicationId));
 		        }
@@ -151,7 +155,7 @@ import java.util.UUID;
 	    
 	    
 
-	
+
 
 	    
 	}
