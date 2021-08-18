@@ -21,8 +21,8 @@ public class RoleRequest {
 	@JsonProperty(access = Access.READ_ONLY)
 	private UUID id;
 	
-	@Size(max = 50)
-	private int applicationId;
+	@Size(max = 200)
+	private String applicationId;
 	
 	
 	@Size(max = 50)

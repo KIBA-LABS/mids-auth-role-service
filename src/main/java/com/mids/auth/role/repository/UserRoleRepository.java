@@ -18,7 +18,7 @@ public interface UserRoleRepository extends JpaRepository<UserRole, UUID> {
 	boolean existsByKey(RoleEmbeddedKey key); 
 	
 	@Query(value="select u.key.roleId from UserRole u join Role r on r.id=u.key.roleId   where r.applicationId=:applicationId and u.key.userId=:userId")
-	List<UUID> getRoleIdByApplicationUserId(int applicationId,String userId);
+	List<UUID> getRoleIdByApplicationUserId(String applicationId,String userId);
 
 	UserRole findByKey(RoleEmbeddedKey key);
 

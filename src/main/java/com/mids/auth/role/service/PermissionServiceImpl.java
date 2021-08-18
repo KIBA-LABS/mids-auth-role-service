@@ -124,7 +124,7 @@ public class PermissionServiceImpl implements PermissionService {
 	
 	
 	@Override
-	public boolean deletePermissionByApplicationId(int applicationId) {
+	public boolean deletePermissionByApplicationId(String applicationId) {
 		
 		if(roleRepository.existsByApplicationId(applicationId))
 		{
@@ -150,7 +150,7 @@ public class PermissionServiceImpl implements PermissionService {
 	
 	
 	@Override
-	public boolean deletePermissionByApplicationRoleId(int applicationId,UUID roleId) {
+	public boolean deletePermissionByApplicationRoleId(String applicationId,UUID roleId) {
 		
 		if(roleRepository.existsByApplicationId(applicationId))
 		{
@@ -175,7 +175,7 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	public List<PermissionRequest> getPermissionByApplicationId(int applicationId) {
+	public List<PermissionRequest> getPermissionByApplicationId(String applicationId) {
 		
 		List<Permission> permissionEntity = permissionRepository.findByApplicationId(applicationId);
 		if (permissionEntity != null) {
@@ -186,7 +186,7 @@ public class PermissionServiceImpl implements PermissionService {
 	
 	
 	@Override
-	public List<PermissionRequest> getPermissionByApplicationRoleId(int applicationId,UUID roleId) {
+	public List<PermissionRequest> getPermissionByApplicationRoleId(String applicationId,UUID roleId) {
 		
 		List<Permission> permissionEntity = permissionRepository.findByApplicationRoleId(applicationId,roleId);
 		if (permissionEntity != null) {

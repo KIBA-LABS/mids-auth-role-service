@@ -91,7 +91,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public boolean deleteRoleByApplicationId(int applicationId) {
+	public boolean deleteRoleByApplicationId(String applicationId) {
 		if (roleRepository.existsByApplicationId(applicationId)) {
 			
 			List<Role> roleEntity = roleRepository.findByApplicationId(applicationId);
@@ -105,8 +105,8 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<RoleRequest> getRoleByApplicationId(int applicationid) {
-		List<Role> roleEntity = roleRepository.findByApplicationId(applicationid);
+	public List<RoleRequest> getRoleByApplicationId(String applicationId) {
+		List<Role> roleEntity = roleRepository.findByApplicationId(applicationId);
 		if (roleEntity != null) {
 			return roleMapper.roleEntityToRole(roleEntity);
 		}
@@ -114,7 +114,7 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public boolean deleteRoleByApplicationRoleId(int applicationId,UUID roleId) {
+	public boolean deleteRoleByApplicationRoleId(String applicationId,UUID roleId) {
 		if (roleRepository.existsByApplicationId(applicationId))
 		{
 			roleRepository.deleteById(roleId);

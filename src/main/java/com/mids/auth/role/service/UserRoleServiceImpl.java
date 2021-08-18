@@ -93,7 +93,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 	public boolean deleteRoleByApplicationUserId(String applicationId, String userId) {
 		// TODO Auto-generated method stub
 		System.out.println("inside service deleteRoleByApplicationUserId");
-		List<UUID> roles = userRoleRepository.getRoleIdByApplicationUserId(Integer.parseInt(applicationId), userId);
+		List<UUID> roles = userRoleRepository.getRoleIdByApplicationUserId(applicationId, userId);
 		if(!roles.isEmpty())
 		{
 		boolean response= deleteRole(roles, applicationId,userId);
@@ -107,7 +107,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 	@Override
 	public boolean deletePermissionByApplicationUserId(String applicationId, String userId) {
 
-		List<UUID> roles = userRoleRepository.getRoleIdByApplicationUserId(Integer.parseInt(applicationId), userId);
+		List<UUID> roles = userRoleRepository.getRoleIdByApplicationUserId(applicationId, userId);
 		List<UserPermission> userPermissionEntity = new ArrayList();
 		if (!roles.isEmpty()) {
 			roles.forEach(role -> {
@@ -172,7 +172,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 		boolean validRole= validateRole(addRoles,appId,userId);
 		if(validRole)
 		{
-			List<UUID> roles = userRoleRepository.getRoleIdByApplicationUserId(Integer.parseInt(appId), userId);
+			List<UUID> roles = userRoleRepository.getRoleIdByApplicationUserId(appId, userId);
 		
 		if(!roles.isEmpty())
 		{
@@ -192,7 +192,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 		boolean validPermission= validatePermission(addPermissions,appId,userId);
 		if(validPermission)
 		{
-		List<UUID> roles = userRoleRepository.getRoleIdByApplicationUserId(Integer.parseInt(appId), userId);
+		List<UUID> roles = userRoleRepository.getRoleIdByApplicationUserId(appId, userId);
 		List<UserPermission> userPermissionEntity = new ArrayList();
 		if (!roles.isEmpty()) {
 			roles.forEach(role -> {
@@ -227,7 +227,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 		
 		if(validRole && validPermission)
 		{
-		List<UUID> removeRoles = userRoleRepository.getRoleIdByApplicationUserId(Integer.parseInt(appId), userId);
+		List<UUID> removeRoles = userRoleRepository.getRoleIdByApplicationUserId(appId, userId);
 		List<UserPermission> userPermissionEntity = new ArrayList();
 		if (!removeRoles.isEmpty()) {
 			removeRoles.forEach(role -> {
@@ -260,7 +260,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 		List<UserRole> userRoleEnitity = new ArrayList();
 		roles.forEach((role) -> {
 			RoleEmbeddedKey key = new RoleEmbeddedKey(userId, role);
-			if (roleRepository.existsByRoleAndApplicationId(role, Integer.parseInt(appId))) {
+			if (roleRepository.existsByRoleAndApplicationId(role, appId)) {
 				System.out.println("inside add role repo");
 				UserRole usersingleRoleEntity = new UserRole();
 				usersingleRoleEntity.setKey(key);
@@ -317,7 +317,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 		permissions.forEach((permission) -> {
 
 			PermissionEmbeddedKey key = new PermissionEmbeddedKey(userId, permission);
-			if (permissionRepository.existsByPermissionRoleAndApplicationId(permission, Integer.parseInt(appId))) {
+			if (permissionRepository.existsByPermissionRoleAndApplicationId(permission, appId)) {
 				UserPermission userSinglePermissionEntity = new UserPermission();
 
 				userSinglePermissionEntity.setKey(key);
@@ -355,11 +355,20 @@ public class UserRoleServiceImpl implements UserRoleService {
 		
 		permissions.forEach((permission) -> {
 			
-			if(!permissionRepository.existsByPermissionRoleAndApplicationId(permission, Integer.parseInt(appId)))
+			if(!permissionRepository.existsByPermissionRoleAndApplicationId(permission, appId))
 			{
 				throw new ResourceNotFoundException(
 						String.format("Permission with uuid " + permission + " is not present in the system for given application"));
 			}
+			
+			UUID role = permissionRepository.findByPermissionApplicationId(permission, appId);
+			RoleEmbeddedKey roleKey = new RoleEmbeddedKey(userId, role);
+			if(!userRoleRepository.existsByKey(roleKey))
+			{
+				throw new ResourceNotFoundException(
+						String.format("Role with id "+role +" attached to Permission with uuid " + permission + " is not attached in the system for given user"));
+			}
+			
 			PermissionEmbeddedKey key = new PermissionEmbeddedKey(userId, permission);
 			if (userPermission.existsByKey(key)) {
 				throw new ResourceNotFoundException(
@@ -372,11 +381,13 @@ public class UserRoleServiceImpl implements UserRoleService {
 		return true;
 	}
 	
+	
+
 	public boolean validateRole(List<UUID> roles, String appId, String userId)
 	{
 		
 		roles.forEach((role) -> {
-			if(!roleRepository.existsByRoleAndApplicationId(role,Integer.parseInt(appId)))
+			if(!roleRepository.existsByRoleAndApplicationId(role,appId))
 			{
 				throw new ResourceNotFoundException(
 						String.format("Role with uuid " + role + " is not present in the system for given application"));

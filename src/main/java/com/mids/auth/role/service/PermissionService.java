@@ -19,12 +19,12 @@ public interface PermissionService {
 
 	PermissionRequest updatePermission(UUID id,PermissionRequest permission);
 
-	List<PermissionRequest> getPermissionByApplicationId(int applicationId);
+	List<PermissionRequest> getPermissionByApplicationId(String applicationId);
 
-	List<PermissionRequest> getPermissionByApplicationRoleId(int applicationId, UUID roleId);
+	List<PermissionRequest> getPermissionByApplicationRoleId(String applicationId, UUID roleId);
 
-	boolean deletePermissionByApplicationId(int applicationId);
+	boolean deletePermissionByApplicationId(String applicationId);
 
-	boolean deletePermissionByApplicationRoleId(int applicationId, UUID roleId);
+	boolean deletePermissionByApplicationRoleId(String applicationId, UUID roleId);
 
 }

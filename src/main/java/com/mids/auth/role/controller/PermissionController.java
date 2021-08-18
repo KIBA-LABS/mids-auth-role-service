@@ -71,7 +71,7 @@ public class PermissionController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "List of roles by using application id") })
 	@GetMapping(value = "{applicationId}")
 	public ResponseEntity<List<PermissionRequest>> getPermissionByApplicationId(
-			@ApiParam(value = "Application of the object", required = true) @PathVariable int applicationId) {
+			@ApiParam(value = "Application of the object", required = true) @PathVariable String applicationId) {
 		List<PermissionRequest> role = permissionService.getPermissionByApplicationId(applicationId);
 		if (role != null) {
 			return ResponseEntity.ok(role);
@@ -85,7 +85,7 @@ public class PermissionController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "List of roles by using application id and role id") })
 	@GetMapping(value = "{applicationId}/{roleId}")
 	public ResponseEntity<List<PermissionRequest>> getPermissionByApplicationId(
-			@ApiParam(value = "Application of the object", required = true) @PathVariable int applicationId,
+			@ApiParam(value = "Application of the object", required = true) @PathVariable String applicationId,
 			@ApiParam(value = "UUID of the object", required = true) @PathVariable UUID roleId) {
 		List<PermissionRequest> role = permissionService.getPermissionByApplicationRoleId(applicationId, roleId);
 		if (role != null) {
@@ -114,7 +114,7 @@ public class PermissionController {
 	@ApiResponses(value = { @ApiResponse(code = 204, message = "Successful operation") })
 	@DeleteMapping(value = "{applicationId}")
 	public ResponseEntity<SuccessResponse> deletePermission(
-			@ApiParam(value = "Application Id of the permission", required = true) @PathVariable int applicationId) {
+			@ApiParam(value = "Application Id of the permission", required = true) @PathVariable String applicationId) {
 		boolean success = permissionService.deletePermissionByApplicationId(applicationId);
 		if (success) {
 			return new ResponseEntity(new SuccessResponse(String.format(StringConstant.PERMISSION_IS_DELETED)),
@@ -129,7 +129,7 @@ public class PermissionController {
 	@ApiResponses(value = { @ApiResponse(code = 204, message = "Successful operation") })
 	@DeleteMapping(value = "{applicationId}/{roleId}")
 	public ResponseEntity<SuccessResponse> deletePermission(
-			@ApiParam(value = "Application id of the permission", required = true) @PathVariable int applicationId,
+			@ApiParam(value = "Application id of the permission", required = true) @PathVariable String applicationId,
 			@ApiParam(value = "UUID of the role object", required = true) @PathVariable UUID roleId) {
 		boolean success = permissionService.deletePermissionByApplicationRoleId(applicationId, roleId);
 		if (success) {

@@ -43,8 +43,8 @@ public class Role {
 	private UUID id;
 	
 	@Column(name = "applicationid")
-	@Size(max = 50)
-	private int applicationId;
+	@Size(max = 200)
+	private String applicationId;
 	
 	@Column(name = "name")
 	@Size(max = 50)

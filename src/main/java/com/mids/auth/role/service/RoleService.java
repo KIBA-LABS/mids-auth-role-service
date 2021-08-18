@@ -15,11 +15,11 @@ import com.mids.auth.role.request.RoleRequest;
 
 	    RoleRequest updateRole(UUID id, RoleRequest role);
 
-		boolean deleteRoleByApplicationId(int appplicationId);
+		boolean deleteRoleByApplicationId(String applicationId);
 		
-		boolean deleteRoleByApplicationRoleId(int appplicationId,UUID roleId);
+		boolean deleteRoleByApplicationRoleId(String applicationId,UUID roleId);
 
-		List<RoleRequest> getRoleByApplicationId(int applicationid);
+		List<RoleRequest> getRoleByApplicationId(String applicationId);
 
 	   
 	}

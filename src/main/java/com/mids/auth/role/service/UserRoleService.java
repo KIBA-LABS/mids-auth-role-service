@@ -32,10 +32,10 @@ public interface UserRoleService {
 
 	boolean putOrDeletePermissionByApplicationUserId(UserPermissionRequest body, String appId, String userId);
 
-	boolean putOrDeleteRolesPermissionByApplicationUserId(@Valid UserRolePermissionRequest body, String appId,
+	boolean putOrDeleteRolesPermissionByApplicationUserId( UserRolePermissionRequest body, String appId,
 			String userId);
 
-	boolean addOrDeleteRolePermissionByApplicationUserId(@Valid UserAddDeleteRolePermissionRequest body, String appId,
+	boolean addOrDeleteRolePermissionByApplicationUserId( UserAddDeleteRolePermissionRequest body, String appId,
 			String userId);
 
 }

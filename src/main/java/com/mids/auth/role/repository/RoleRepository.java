@@ -23,13 +23,13 @@ public interface RoleRepository extends JpaRepository<Role, UUID> {
 	
 	Optional<Role> findById(Long id);
 	
-	List<Role> findByApplicationId(int applicationId);
+	List<Role> findByApplicationId(String applicationId);
 	
-	Boolean existsByApplicationId(int applicationId);
+	Boolean existsByApplicationId(String applicationId);
     
 	Boolean existsByRoleName(String name);
 	
 	@Query("select case when count(c)> 0 then true else false end from Role c where id=:id and applicationid=:applicationId")
-	boolean existsByRoleAndApplicationId(UUID id,int applicationId);
+	boolean existsByRoleAndApplicationId(UUID id,String applicationId);
 	
 }

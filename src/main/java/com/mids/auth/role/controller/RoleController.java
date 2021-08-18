@@ -86,12 +86,12 @@ import java.util.UUID;
 	    @GetMapping(value = "{applicationid}")
 	    public ResponseEntity<List<RoleRequest>> getRoleByApplicationId(
 	            @ApiParam(value="Application id  of the object", required = true)
-	            @PathVariable int applicationid) {
-	    	List<RoleRequest> role = roleService.getRoleByApplicationId(applicationid);
+	            @PathVariable String applicationId) {
+	    	List<RoleRequest> role = roleService.getRoleByApplicationId(applicationId);
 	        if(role != null) {
 	            return ResponseEntity.ok(role);
 	        } else {
-	            throw new ResourceNotFoundException(String.format(StringConstant.ROLE_BY_APPLICATIONID_NOT_FOUND, applicationid));
+	            throw new ResourceNotFoundException(String.format(StringConstant.ROLE_BY_APPLICATIONID_NOT_FOUND, applicationId));
 	        }
 	    }
 
@@ -121,7 +121,7 @@ import java.util.UUID;
 	    @DeleteMapping(value = "{applicationId}")
 	    public ResponseEntity<SuccessResponse> deleteRole(
 	            @ApiParam(value="UUID of the object", required = true)
-	            @PathVariable int applicationId) {
+	            @PathVariable String applicationId) {
 	        boolean success = roleService.deleteRoleByApplicationId(applicationId);
 	        if(success) {
 	        	return new ResponseEntity(new SuccessResponse(String.format(StringConstant.ROLE_IS_DELETED)),
@@ -142,7 +142,7 @@ import java.util.UUID;
 		    @DeleteMapping(value = "{applicationId}/{id}")
 		    public ResponseEntity<SuccessResponse> deleteRole(
 		            @ApiParam(value="ApplcationId of the object", required = true)
-		            @PathVariable int applicationId,@ApiParam(value="UUID of the object", required = true)
+		            @PathVariable String applicationId,@ApiParam(value="UUID of the object", required = true)
 		            @PathVariable UUID id) {
 		        boolean success = roleService.deleteRoleByApplicationRoleId(applicationId,id);
 		        if(success) {
