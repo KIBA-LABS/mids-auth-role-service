@@ -16,6 +16,12 @@ public class StringConstant {
     public static final String ROLE_IS_CREATED = "Role is created.";
     public static final String PERMISSION_IS_CREATED = "Permission is created.";
     public static final String ROLE_IS_DELETED = "Role is deleted.";
+    public static final String ROLE_IS_DELETED_ADDED = "Add roles is succesfully added to user and remove roles is succesfully deleted from the user.";
     public static final String PERMISSION_IS_DELETED = "Permission is deleted.";
+    public static final String PERMISSION_IS_DELETED_ADDED = "Add permissions is succesfully added to user and remove permissions is succesfully deleted from the user.";
+    public static final String ROLES_PERMISSION_IS_DELETED_ADDED = "Add roles and permissions is succesfully added to user and remove roles and permissions is succesfully deleted from the user.";
     public static final String ROLE_IS_ADDED_TO_USER="Role is succesfully added to user.";
+    
+    public static final String PERMISSION_IS_ADDED_TO_USER="Permission is succesfully added to user.";
+    public static final String ROLES_PERMISSION_IS_ADDED_TO_USER="Roles and Permission is succesfully added to user.";
 }

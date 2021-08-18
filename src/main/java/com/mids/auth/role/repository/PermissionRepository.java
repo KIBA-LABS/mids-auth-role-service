@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mids.auth.role.entity.EPermission;
 import com.mids.auth.role.entity.Permission;
+import com.mids.auth.role.entity.PermissionEmbeddedKey;
 import com.mids.auth.role.entity.Role;
 
 import java.util.List;
@@ -29,4 +30,12 @@ public interface PermissionRepository extends JpaRepository<Permission, UUID> {
 	
 	@Query("Select p from Permission p  JOIN p.roles r  where r.applicationId=:applicationId and r.id=:roleId")
 	List<Permission> findByApplicationRoleId(int applicationId,UUID roleId);
+	
+	@Query("Select p.id from Permission p  JOIN p.roles r  where r.applicationId=:applicationId and r.id=:roleId")
+	List<UUID> findPermissionApplicationRoleId(int applicationId,UUID roleId);
+	
+	@Query("select case when count(p)> 0 then true else false end  from Permission p  JOIN p.roles r  where r.applicationId=:applicationId and p.id=:id")
+	boolean existsByPermissionRoleAndApplicationId(UUID id,int applicationId);
+
+	
 }
