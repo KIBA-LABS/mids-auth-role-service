@@ -284,6 +284,8 @@ public class UserRoleServiceImpl implements UserRoleService {
 		if (!roles.isEmpty()) {
 			roles.forEach(role -> {
 				RoleEmbeddedKey key = new RoleEmbeddedKey(userId, role);
+				if(userRoleRepository.existsByKey(key))
+				{
 				userRoleEntity.add(userRoleRepository.findByKey(key));
 				List<UUID> permissions = userPermission.getPermissionIdByApplicationUserId(role, userId);
 
@@ -291,10 +293,12 @@ public class UserRoleServiceImpl implements UserRoleService {
 					permissions.forEach(permission -> {
 
 						PermissionEmbeddedKey perimissionKey = new PermissionEmbeddedKey(userId, permission);
+						if(userPermission.existsByKey(perimissionKey))
 						userPermissionEntity.add(userPermission.findByKey(perimissionKey));
 
 					});
 
+				}
 				}
 			});
 			userPermission.deleteAll(userPermissionEntity);
@@ -336,6 +340,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 			permissions.forEach(permission -> {
 
 				PermissionEmbeddedKey perimissionKey = new PermissionEmbeddedKey(userId, permission);
+				if(userPermission.existsByKey(perimissionKey))
 				userPermissionEntity.add(userPermission.findByKey(perimissionKey));
 
 			});
