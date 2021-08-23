@@ -31,7 +31,7 @@ public class PermissionRequest {
 	
 	private Role roles;
 
-
+	@JsonProperty
 	public UUID getId() {
 		return id;
 	}
