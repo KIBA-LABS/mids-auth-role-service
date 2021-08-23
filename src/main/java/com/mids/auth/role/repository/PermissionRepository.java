@@ -38,6 +38,9 @@ public interface PermissionRepository extends JpaRepository<Permission, UUID> {
 	boolean existsByPermissionRoleAndApplicationId(UUID id,String applicationId);
 	@Query("select p.roles.id from Permission p  JOIN p.roles r  where r.applicationId=:applicationId and p.id=:permission")
 	UUID findByPermissionApplicationId(UUID permission, String applicationId);
+    
+	@Query(value="select p from Permission p join UserPermission u on p.id=u.key.permissionId where p.roles.id in (select r.key.roleId from UserRole r join Role c on c.id=r.key.roleId where r.key.userId=:userId and c.applicationId=:applicationId) and u.key.userId=:userId")
+	List<Permission> findByApplicationUserId(String applicationId, String userId);
 
 	
 }

@@ -76,13 +76,14 @@ public class UserRoleServiceImpl implements UserRoleService {
 		List<UUID> permissions = body.getPermission();
 
 		boolean validRole= validateRole(roles,appId,userId);
-		boolean validPermission= validatePermission(permissions,appId,userId);
+		
 	        
-		System.out.println("validRole "+ validRole  + "  validPermission      "+  validPermission);
-		if(validRole && validPermission)
+		System.out.println("validRole "+ validRole  + "  validPermission      ");
+		if(validRole)
 		{
 		addRole(roles, appId, userId);
-
+		boolean validPermission= validatePermission(permissions,appId,userId);
+		if(validPermission)
 		addPermission(permissions, appId, userId);
 		}
 
@@ -223,9 +224,9 @@ public class UserRoleServiceImpl implements UserRoleService {
 		List<UUID> roles = body.getRole();
 		List<UUID> permissions = body.getPermission();
 		boolean validRole= validateRole(roles,appId,userId);
-		boolean validPermission= validatePermission(permissions,appId,userId);
 		
-		if(validRole && validPermission)
+		
+		if(validRole)
 		{
 		List<UUID> removeRoles = userRoleRepository.getRoleIdByApplicationUserId(appId, userId);
 		List<UserPermission> userPermissionEntity = new ArrayList();
@@ -245,7 +246,8 @@ public class UserRoleServiceImpl implements UserRoleService {
 	}
 		
 		addRole(roles, appId, userId);
-
+		boolean validPermission= validatePermission(permissions,appId,userId);
+		if(validPermission)
 		addPermission(permissions, appId, userId);
 		}
 
@@ -411,8 +413,8 @@ public class UserRoleServiceImpl implements UserRoleService {
 		List<UUID> addRoles = body.getAddRoles();
 		List<UUID> addPermissions = body.getAddPermissions();
 		boolean validRole= validateRole(addRoles,appId,userId);
-		boolean validPermission= validatePermission(addPermissions,appId,userId);
-		if(validRole && validPermission)
+		
+		if(validRole)
 		{
 			List<UUID> removeRoles = body.getRemoveRoles();
 			List<UUID> inputRemoveRoles = body.getRemovePermissions();
@@ -433,7 +435,8 @@ public class UserRoleServiceImpl implements UserRoleService {
 		}
 			
 			addRole(addRoles, appId, userId);
-
+			boolean validPermission= validatePermission(addPermissions,appId,userId);
+			if(validPermission)
 			addPermission(addPermissions, appId, userId);
 		return true;
 	}

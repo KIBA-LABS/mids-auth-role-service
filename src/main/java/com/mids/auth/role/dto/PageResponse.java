@@ -1,30 +1,32 @@
 package com.mids.auth.role.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PageResponse<T> {
-    List<T> content;
-    @ApiModelProperty(notes = "Current page number")
+	List<T> content;
+    @Schema(description = "Current page number")
     int pageNumber;
-    @ApiModelProperty(notes = "Size of the page or limit")
+    @Schema(description = "Size of the page or limit")
     int pageSize;
-    @ApiModelProperty(notes = "Total number of pages")
+    @Schema(description = "Total number of pages")
     int totalPages;
-    @ApiModelProperty(notes = "Total records")
+    @Schema(description = "Total records")
     long totalElements;
-    @ApiModelProperty(notes = "First page or not")
+    @Schema(description = "First page or not")
     boolean first;
-    @ApiModelProperty(notes = "Last page or not")
+    @Schema(description = "Last page or not")
     boolean last;
-    @ApiModelProperty(notes = "Number of records in current page")
+    @Schema(description = "Number of records in current page")
     int numberOfElements;
 	
     

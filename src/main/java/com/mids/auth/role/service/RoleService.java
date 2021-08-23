@@ -2,6 +2,9 @@ package com.mids.auth.role.service;
 import java.util.List;
 import java.util.UUID;
 
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+
 import com.mids.auth.role.dto.PageResponse;
 import com.mids.auth.role.entity.Role;
 import com.mids.auth.role.request.RoleRequest;
@@ -19,7 +22,9 @@ import com.mids.auth.role.request.RoleRequest;
 		
 		boolean deleteRoleByApplicationRoleId(String applicationId,UUID roleId);
 
-		List<RoleRequest> getRoleByApplicationId(String applicationId);
+		 PageResponse<RoleRequest> getRoleByApplicationId(String applicationId, Integer page, Integer limit);
+
+		List<RoleRequest> getRoleByApplicationUserId(String applicationId, String userId);
 
 	   
 	}

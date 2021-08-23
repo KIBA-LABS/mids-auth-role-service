@@ -1,13 +1,16 @@
 package com.mids.auth.role.exception;
 
-import com.google.common.collect.Lists;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler; 
-import com.mids.auth.role.dto.Error; 
+import com.mids.auth.role.dto.Error;
+
+import java.util.List;
+
 import javax.validation.ConstraintViolationException;
 
 @ControllerAdvice
@@ -36,7 +39,7 @@ public class GlobalExceptionHandler {
 
     private ResponseEntity<Error> getErrorResponse(String errorMessage, HttpStatus status) {
     	log.error(errorMessage);
-        Error error = new Error(Lists.newArrayList(errorMessage));
+    	 Error error = new Error(List.of(errorMessage));
         return new ResponseEntity<>(error, status);
     }
 }

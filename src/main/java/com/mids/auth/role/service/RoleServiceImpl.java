@@ -105,12 +105,27 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<RoleRequest> getRoleByApplicationId(String applicationId) {
-		List<Role> roleEntity = roleRepository.findByApplicationId(applicationId);
-		if (roleEntity != null) {
-			return roleMapper.roleEntityToRole(roleEntity);
-		}
-		return null;
+	public PageResponse<RoleRequest> getRoleByApplicationId(String applicationId,Integer pageNumber, Integer recordsPerPage) {
+		
+		Pageable pageable = PageRequest.of(pageNumber, recordsPerPage);
+		Page<Role> rolePage = roleRepository.findByPageApplicationId(applicationId,pageable);
+
+		PageResponse<RoleRequest> pageResponse = new PageResponse<>();
+		pageResponse.setContent(
+				rolePage.getContent().stream().map(roleMapper::roleEntityToRole).collect(Collectors.toList()));
+		pageResponse.setPageNumber(pageNumber);
+		pageResponse.setPageSize(rolePage.getSize());
+		pageResponse.setTotalPages(rolePage.getTotalPages());
+		pageResponse.setTotalElements(rolePage.getTotalElements());
+		pageResponse.setFirst(rolePage.isFirst());
+		pageResponse.setLast(rolePage.isLast());
+		pageResponse.setNumberOfElements(rolePage.getNumberOfElements());
+		return pageResponse;
+		/*
+		 * List<Role> roleEntity = roleRepository.findByApplicationId(applicationId); if
+		 * (roleEntity != null) { return roleMapper.roleEntityToRole(roleEntity); }
+		 * return null;
+		 */
 	}
 
 	@Override
@@ -120,6 +135,18 @@ public class RoleServiceImpl implements RoleService {
 			roleRepository.deleteById(roleId);
 		}
 		return false;
+	}
+
+	@Override
+	public List<RoleRequest> getRoleByApplicationUserId(String applicationId, String userId) {
+if (roleRepository.existsByApplicationUserId(applicationId,userId)) {
+			
+			List<Role> roleEntity = roleRepository.findByApplicationUserIdFor(applicationId,userId);
+			
+			if(roleEntity!=null)
+			return roleMapper.roleEntityToRole(roleEntity);
+		}
+		return null;
 	}
 
 }

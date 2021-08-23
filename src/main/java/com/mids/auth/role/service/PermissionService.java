@@ -27,4 +27,6 @@ public interface PermissionService {
 
 	boolean deletePermissionByApplicationRoleId(String applicationId, UUID roleId);
 
+	List<PermissionRequest> getPermissionByApplicationUserId(String applicationId, String userId);
+
 }
