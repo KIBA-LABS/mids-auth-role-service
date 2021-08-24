@@ -205,4 +205,14 @@ public class PermissionServiceImpl implements PermissionService {
 		return null;
 	}
 
+	@Override
+	public PermissionRequest getPermissionByPermissionId(UUID permissionId) {
+		if(permissionRepository.existsById(permissionId))
+		{
+			Permission permissionEntity = permissionRepository.findById(permissionId).orElse(null);
+			return roleMapper.permissionEntityToPermission(permissionEntity);
+		}
+		return null;
+	}
+
 }

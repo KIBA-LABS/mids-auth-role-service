@@ -120,6 +120,19 @@ public class PermissionController {
 			throw new ResourceNotFoundException(String.format(StringConstant.PERMISSION_BY_ID_NOT_FOUND, body.getId()));
 		}
 	}
+	
+	
+	@Operation(summary = "get the permission by permissionId", description = "The endpoint will get the permission by permissionId")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
+	@GetMapping(value = "{permissionId}")
+	public ResponseEntity<PermissionRequest> updatePermission(@PathVariable UUID permissionId) {
+		PermissionRequest permission = permissionService.getPermissionByPermissionId(permissionId);
+		if (permission != null) {
+			return ResponseEntity.ok(permission);
+		} else {
+			throw new ResourceNotFoundException(String.format(StringConstant.PERMISSION_BY_ID_NOT_FOUND,permissionId));
+		}
+	}
 
 	@Operation(summary = "Delete all the permission of Application", description = "The endpoint will delete all the permission of any Application")
 	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Successful operation") })

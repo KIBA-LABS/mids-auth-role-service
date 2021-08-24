@@ -63,7 +63,7 @@ public class RoleServiceImpl implements RoleService {
 
 		System.out.println("testttt");
 
-		roleRepository.save(roleEntity);
+		roleRepository.save(roleEntity); 
 		return "Success";
 	}
 
@@ -129,12 +129,17 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public boolean deleteRoleByApplicationRoleId(String applicationId,UUID roleId) {
+	public String deleteRoleByApplicationRoleId(String applicationId,UUID roleId) {
 		if (roleRepository.existsByApplicationId(applicationId))
-		{
+		{   
+			if(roleRepository.existsById(roleId))
+			{
 			roleRepository.deleteById(roleId);
+			return "Success";
+			}
+			return "roleId";
 		}
-		return false;
+		return "appId";
 	}
 
 	@Override
@@ -144,6 +149,18 @@ if (roleRepository.existsByApplicationUserId(applicationId,userId)) {
 			List<Role> roleEntity = roleRepository.findByApplicationUserIdFor(applicationId,userId);
 			
 			if(roleEntity!=null)
+			return roleMapper.roleEntityToRole(roleEntity);
+		}
+		return null;
+	}
+
+	@Override
+	public RoleRequest getRoleByRoleId(UUID id) {
+		if(roleRepository.existsById(id))
+				{
+			
+			Role roleEntity = roleRepository.findById(id).orElse(null);
+			
 			return roleMapper.roleEntityToRole(roleEntity);
 		}
 		return null;

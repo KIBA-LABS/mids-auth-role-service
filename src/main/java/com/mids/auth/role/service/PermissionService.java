@@ -29,4 +29,6 @@ public interface PermissionService {
 
 	List<PermissionRequest> getPermissionByApplicationUserId(String applicationId, String userId);
 
+	PermissionRequest getPermissionByPermissionId(UUID permissionId);
+
 }

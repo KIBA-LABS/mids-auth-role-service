@@ -95,6 +95,22 @@ public class RoleController {
 					String.format(StringConstant.ROLE_BY_APPLICATIONID_NOT_FOUND, applicationId));
 		}
 	}
+	
+	
+	@Operation(summary = "Get the list of application roles and permissions using application id and userId ", description = "The endpoint will return the list of application roles and permissions by using application and user id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
+	@GetMapping(value = "permissions/applications/{applicationId}/users/{userId}")
+	public ResponseEntity<List<RoleRequest>> getRolePermissionByApplicationUserId(
+			 @PathVariable String applicationId,
+			 @PathVariable String userId) {
+		List<RoleRequest> role = roleService.getRoleByApplicationUserId(applicationId, userId);
+		if (role != null) {
+			return ResponseEntity.ok(role);
+		} else {
+			throw new ResourceNotFoundException(
+					String.format(StringConstant.ROLE_BY_APPLICATIONID_NOT_FOUND, applicationId));
+		}
+	}
 
 	@Operation(summary = "Update the application role", description = "The endpoint will update a role of application")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
@@ -107,6 +123,19 @@ public class RoleController {
 			return ResponseEntity.ok(role);
 		} else {
 			throw new ResourceNotFoundException(String.format(StringConstant.ROLE_BY_ID_NOT_FOUND, body.getId()));
+		}
+	}
+	
+	@Operation(summary = "Get the application role by roleId", description = "The endpoint will get a role by roleId")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successful operation") })
+	@GetMapping(value = "{roleId}")
+	public ResponseEntity<RoleRequest> updateRole(
+			 @PathVariable UUID roleId) {
+		RoleRequest role = roleService.getRoleByRoleId(roleId);
+		if (role != null) {
+			return ResponseEntity.ok(role);
+		} else {
+			throw new ResourceNotFoundException(String.format(StringConstant.ROLE_BY_ID_NOT_FOUND, roleId));
 		}
 	}
 
@@ -128,17 +157,22 @@ public class RoleController {
 
 	@Operation(summary = "Delete the application role using role id", description = "The endpoint will delete a role of any application by role id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Successful operation") })
-	@DeleteMapping(value = "applications/{applicationId}/roles/{id}")
+	@DeleteMapping(value = "applications/{applicationId}/roles/{roleId}")
 	public ResponseEntity<SuccessResponse> deleteRole(
 			 @PathVariable String applicationId,
-			 @PathVariable UUID id) {
-		boolean success = roleService.deleteRoleByApplicationRoleId(applicationId, id);
-		if (success) {
+			 @PathVariable UUID roleId) {
+		String success = roleService.deleteRoleByApplicationRoleId(applicationId, roleId);
+		if ("Success".equalsIgnoreCase(success)) {
 			return new ResponseEntity(new SuccessResponse(String.format(StringConstant.ROLE_IS_DELETED)),
 					HttpStatus.NO_CONTENT);
-		} else {
+		} else if ("appId".equalsIgnoreCase(success)) {
 			throw new ResourceNotFoundException(
 					String.format(StringConstant.ROLE_BY_APPLICATION_ID_NOT_FOUND, applicationId));
+		}
+		
+		else {
+			throw new ResourceNotFoundException(
+					String.format(StringConstant.ROLE_BY_ID_NOT_FOUND, roleId));
 		}
 	}
 
