@@ -26,7 +26,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value = "api/auth/permission")
 @Validated
@@ -145,6 +145,20 @@ public class PermissionController {
 		} else {
 			throw new ResourceNotFoundException(
 					String.format(StringConstant.PERMISSION_BY_APPLICATION_ID_NOT_FOUND, applicationId));
+		}
+	}
+	
+	@Operation(summary = "Delete all the permission of Application", description = "The endpoint will delete all the permission of any Application")
+	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Successful operation") })
+	@DeleteMapping(value = "{permissionId}")
+	public ResponseEntity<SuccessResponse> deletePermissionByPermissionId(@PathVariable UUID permissionId) {
+		boolean success = permissionService.deletePermissionByPermissionId(permissionId);
+		if (success) {
+			return new ResponseEntity(new SuccessResponse(String.format(StringConstant.PERMISSION_IS_DELETED)),
+					HttpStatus.NO_CONTENT);
+		} else {
+			throw new ResourceNotFoundException(
+					String.format(StringConstant.PERMISSION_BY_ID_NOT_FOUND, permissionId));
 		}
 	}
 
