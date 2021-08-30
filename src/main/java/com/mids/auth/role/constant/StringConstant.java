@@ -2,6 +2,8 @@ package com.mids.auth.role.constant;
 
 public class StringConstant {
 
+    public static final String ROLES_PERMISSION_IS_ADDED_TO_API_KEY = "Roles and Permission is succesfully added to api key.";
+
     private StringConstant() {
         //private constructor for constant class
     }
@@ -21,7 +23,9 @@ public class StringConstant {
     public static final String PERMISSION_IS_DELETED_ADDED = "Add permissions is succesfully added to user and remove permissions is succesfully deleted from the user.";
     public static final String ROLES_PERMISSION_IS_DELETED_ADDED = "Add roles and permissions is succesfully added to user and remove roles and permissions is succesfully deleted from the user.";
     public static final String ROLE_IS_ADDED_TO_USER="Role is succesfully added to user.";
+    public static final String ROLE_IS_ADDED_TO_API_KEY="Role is succesfully added to api key.";
     
     public static final String PERMISSION_IS_ADDED_TO_USER="Permission is succesfully added to user.";
+    public static final String PERMISSION_IS_ADDED_TO_API_KEY="Permission is succesfully added to api key.";
     public static final String ROLES_PERMISSION_IS_ADDED_TO_USER="Roles and Permission is succesfully added to user.";
 }

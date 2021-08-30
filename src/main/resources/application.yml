@@ -1,7 +1,7 @@
 spring:
     datasource:
-        password: admin
-        url: jdbc:postgresql://localhost:5432/postgres
+        password: password
+        url: jdbc:postgresql://localhost:5432/auth_db4
         username: postgres
     jpa:
         hibernate:
@@ -27,4 +27,6 @@ logging:
     org.springframework.web: ERROR
     com.mids.auth.role: DEBUG
     org.hibernate: ERROR
+server:
+  port: 8102
                 
