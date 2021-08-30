@@ -215,4 +215,15 @@ public class PermissionServiceImpl implements PermissionService {
 		return null;
 	}
 
+	@Override
+	public boolean deletePermissionByPermissionId(UUID permissionId) {
+		if(permissionRepository.existsById(permissionId))
+		{  
+			permissionRepository.deleteById(permissionId);
+			
+			return true ;
+		}
+		return false;
+	}
+
 }

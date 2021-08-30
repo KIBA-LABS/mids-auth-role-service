@@ -31,4 +31,6 @@ public interface PermissionService {
 
 	PermissionRequest getPermissionByPermissionId(UUID permissionId);
 
+	boolean deletePermissionByPermissionId(UUID permissionId);
+
 }
